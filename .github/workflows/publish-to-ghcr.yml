@@ -1,0 +1,44 @@
+name: Publish Docker Image to GitHub Packages
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 23
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '23'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Packages
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Generate Timestamp Tag
+        run: echo "IMAGE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Extract repository name
+        run: echo "REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Build with Gradle
+        run: ./gradlew clean build -x test
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }} .
+
+      - name: Push Docker Image to GitHub Packages
+        run: |
+          docker push ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
