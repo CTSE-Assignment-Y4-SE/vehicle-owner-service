@@ -5,7 +5,7 @@ grpc:
   server:
     port: 7073
   address:
-    name: user-service
+    name: vehicle-owner-service
     service-port:
       user: 7072
 
@@ -13,7 +13,7 @@ spring:
   application:
     name: vehicle-owner-service
   datasource:
-    url: jdbc:postgresql://postgres-vehicle:5432/vehicle-owner-service
+    url: jdbc:postgresql://postgres-vehicle-owner-service:5432/vehicle-owner-service
     username: postgres
     password: Root@123
     driver-class-name: org.postgresql.Driver
@@ -22,6 +22,8 @@ spring:
       maximum-pool-size: 5
       connection-timeout: 30000
   jpa:
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

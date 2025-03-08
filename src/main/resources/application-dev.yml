@@ -22,11 +22,16 @@ spring:
       maximum-pool-size: 5
       connection-timeout: 30000
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
+  sql:
+    init:
+      mode: always
 
 logging:
   level:
