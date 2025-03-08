@@ -51,13 +51,15 @@ jobs:
         with:
           repository: "CTSE-Assignment-Y4-SE/infrastructure"
           token: ${{ secrets.GH_PAT }}
+          path: infrastructure
 
       - name: Update Image Tag in Kubernetes Deployment
         run: |
-          sed -i "s|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:.*|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:${{ env.IMAGE_TAG }}|" vehicle-owner-service/vehicle-owner-service.yaml
+          sed -i "s|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:.*|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:${{ env.IMAGE_TAG }}|" infrastructure/vehicle-owner-service/vehicle-owner-service.yaml
 
       - name: Commit and Push Changes
         run: |
+          cd infrastructure
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add vehicle-owner-service/vehicle-owner-service.yaml
