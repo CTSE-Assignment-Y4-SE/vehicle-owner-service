@@ -62,6 +62,6 @@ jobs:
           cd infrastructure
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add vehicle-owner-service/vehicle-owner-service.yaml
+          git add ./k8s/vehicle-owner-service/deployment.yaml
           git commit -m "Feat: update vehicle-owner-service image tag to ${{ env.IMAGE_TAG }}"
           git push
