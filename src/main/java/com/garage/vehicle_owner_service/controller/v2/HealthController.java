@@ -16,7 +16,7 @@ public class HealthController {
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseEntityDto> getHealth() {
-        ResponseEntityDto response = new ResponseEntityDto("App is runningggg!", true);
+        ResponseEntityDto response = new ResponseEntityDto("App is running!", true);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
