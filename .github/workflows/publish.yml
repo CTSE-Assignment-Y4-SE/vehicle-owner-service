@@ -55,7 +55,7 @@ jobs:
 
       - name: Update Image Tag in Kubernetes Deployment
         run: |
-          sed -i "s|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:.*|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:${{ env.IMAGE_TAG }}|" infrastructure/vehicle-owner-service/vehicle-owner-service.yaml
+          sed -i "s|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:.*|ghcr.io/ctse-assignment-y4-se/vehicle-owner-service:${{ env.IMAGE_TAG }}|" infrastructure/k8s/vehicle-owner-service/deployment.yaml
 
       - name: Commit and Push Changes
         run: |
