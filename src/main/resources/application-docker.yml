@@ -5,7 +5,7 @@ grpc:
   server:
     port: 7073
   address:
-    name: vehicle-owner-service
+    name: user-service
     service-port:
       user: 7072
 
